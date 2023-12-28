@@ -1,0 +1,14 @@
+# docker compose, "up" create and start conatiner
+docker-compose -f docker-compose.yml up
+
+# run docker without stopping at end of compose
+docker-compose up -d
+
+#docker stop container
+docker stop my_container
+
+#docker logs 
+docker logs --tail 50 --follow --timestamps my_container
+
+#attach terminal to container
+docker attach
