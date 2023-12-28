@@ -1,0 +1,9 @@
+set up mariadb
+- create sh script 
+- set up wordpress table structures
+- add volume
+- add network
+
+
+
+set up ssh and port foward from vm to mac

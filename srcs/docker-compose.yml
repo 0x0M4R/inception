@@ -9,9 +9,9 @@ services:
     #   - db_data:/var/lib/mysql
     # networks:
     #   - docker_network
-    tty: true
-    #env_file:
-    #  - .env
+    #tty: true
+    env_file:
+      - .env
 #    restart: always
 
 #   wordpress:
