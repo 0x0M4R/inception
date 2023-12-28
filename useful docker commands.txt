@@ -12,3 +12,6 @@ docker logs --tail 50 --follow --timestamps my_container
 
 #attach terminal to container
 docker attach
+
+#open bash from host machine
+docker exec -it nginx bash

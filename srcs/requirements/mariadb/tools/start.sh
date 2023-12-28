@@ -36,4 +36,4 @@ echo "GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'localhost' IDENTIFIED
 
 #service mariadb stop
 
-exec "$@"
+#exec "$@"
