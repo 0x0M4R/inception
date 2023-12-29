@@ -15,3 +15,5 @@ docker attach
 
 #open bash from host machine
 docker exec -it nginx bash
+
+#apt list --installed

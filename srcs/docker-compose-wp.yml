@@ -14,33 +14,34 @@ services:
   #     - .env
 #    restart: always
 
-#   wordpress:
-#     container_name: wordpress
-#     build: wordpress
-#     depends_on: 
-#       - mariadb
-#     networks:
-#       - docker_network
-#     volumes:
-#       - wordpress_data:/var/www/html
-#     env_file:
-#       - .env
-#     restart: always
-
-  nginx:
-    container_name: nginx
-    build: requirements/nginx
-#     depends_on :
-#       - wordpress
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    # depends_on: 
+    #   - mariadb
     networks:
       - docker_network
-    ports:
-      - 443:443
-      # extra_hosts:
-      #   - "127.0.0.1:oabdalla.42.fr.localhost"
     volumes:
       - wp:/var/www/html
-    restart: always
+    env_file:
+      - .env
+    tty: true
+    # restart: always
+
+#   nginx:
+#     container_name: nginx
+#     build: requirements/nginx
+# #     depends_on :
+# #       - wordpress
+#     networks:
+#       - docker_network
+#     ports:
+#       - 443:443
+#       # extra_hosts:
+#       #   - "127.0.0.1:oabdalla.42.fr.localhost"
+#     volumes:
+#       - wp:/var/www/html
+#     restart: always
 
 networks:
   docker_network:

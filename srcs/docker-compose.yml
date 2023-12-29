@@ -45,16 +45,16 @@ services:
 #     driver : bridge
 
 # volumes:
-#   db_data: 
+#   # db_data: 
+#   #   driver: local
+#   #   driver_opts:
+#   #     type: none
+#   #     device: /Users/oabdalla/data/mysql
+#   #     o: bind
+#   wp:
 #     driver: local
 #     driver_opts:
 #       type: none
-#       device: /Users/oabdalla/data/mysql
-#       o: bind
-#   wordpress_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /Users/oabdalla/data/wordpress
+#       device: /Users/oabdalla/data/wp
 #       o: bind
 
