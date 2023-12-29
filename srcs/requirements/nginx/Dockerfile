@@ -1,7 +1,5 @@
-#Precise with what our image will be built
 FROM debian:buster
 
-#Install nginx with RUN
 RUN apt-get update && apt-get -y install nginx \
 openssl 
 #&& rm -rf /var/lib/apt/lists/*
@@ -11,16 +9,20 @@ RUN mkdir /etc/nginx/ssl
 #sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 
 #-keyout /etc/ssl/private/nginx-selfsigned.key 
 #-out /etc/ssl/certs/nginx-selfsigned.crt
-# RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-#     -out /etc/nginx/ssl/oabdalla.crt \
-#     -keyout /etc/ssl/oabdalla.key \
-#     -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=oabdalla/CN=oabdalla"
-#     #.42.fr"
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+    -out /etc/nginx/ssl/oabdalla.42.fr.chained.crt \
+    -keyout /etc/nginx/ssl/oabdalla.42.fr.key \
+    -subj "/C=AE/ST=Abu Dhabi/L=Abu Dhabi/O=42 Abu Dhabi/OU=oabdalla/CN=oabdalla"
 
 #Copy the new configuration inside nginx
 #COPY conf/nginx.conf /etc/nginx/conf.d
-COPY conf/nginx.conf /etc/nginx/conf.d
+COPY conf/nginx.conf /etc/nginx/sites-available/default
 
-EXPOSE 443
+#RUN mkdir -p /run/nginx
+
+
+# add 127.0.0.1 oabdalla.42.fr to host file and on host machine
+
+EXPOSE 443 
 
 CMD ["nginx", "-g", "daemon off;"]
