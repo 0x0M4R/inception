@@ -17,3 +17,11 @@ docker attach
 docker exec -it nginx bash
 
 #apt list --installed
+
+#remove container and volumes
+docker-compose rm -f
+
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
+docker-compose down && docker-compose build --no-cache && docker-compose up

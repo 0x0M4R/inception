@@ -7,9 +7,30 @@ php-cli \
 php-mysql \
 #process manager
 php-fpm \
-curl 
+curl \
+unzip \
+wget
 #less \
 #dumb-init
+RUN mkdir -p /var/www/html/wordpress
+RUN wget https://wordpress.org/latest.zip
+RUN unzip latest.zip -d /var/www/html/
+
+COPY ./tools/wp-config.php /var/www/html/wordpress
+
+RUN chown -R www-data:www-data /var/www/html/wordpress/
+# make sure volume is clean !!!!
+#download wordpress
+#curl -O https://wordpress.org/latest.zip
+
+#unzip latest.zip -d /var/www/html/
+
+#mkdir -p /var/www/html/wordpres
+#chown -R www-data:www-data /var/www/html/wordpress/
+#tar xzvf latest.tar.gz  --directory /var/www/html/
+
+#sudo apt-get install unzip
+
 
 # interface for php web app
 #php-cgi 
