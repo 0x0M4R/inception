@@ -2,15 +2,36 @@ FROM debian:buster
 
 RUN apt-get update && apt-get -y install  \
 php \
+php-cli \
 #for db
 php-mysql \
 #process manager
 php-fpm \
-# interface for php web app
-php-cgi 
+curl 
+#less \
+#dumb-init
 
+# interface for php web app
+#php-cgi 
+
+# Install the wordpress CLI. This isn't a package that we can install via apt,
+# so we need to download it off github and set it to executable
+# RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp \
+# 	&& chmod +x /usr/local/bin/wp
 #php-cli
 
+
+# RUN mkdir -p /var/www/html/wordpress
+
+
+# COPY ./tools/install_wp.sh /tmp/
+
+# COPY ./tools/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+
+# EXPOSE 9000
+
+# ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]
+# CMD ["/bin/bash", "/tmp/install_wp.sh" ]
 
 #mkdir -p /run/php
 
@@ -23,6 +44,6 @@ php-cgi
 # # rm -rf wordpress
 # cp wp-config-sample.php wp-config.php
 
-mkdir -p /run/php
+#mkdir -p /run/php
 
 # EXPOSE 9000

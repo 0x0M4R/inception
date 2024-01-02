@@ -22,8 +22,10 @@ RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 3306
 
-ENTRYPOINT [ "/usr/local/bin/start.sh" ]
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+# ENTRYPOINT [ "/usr/local/bin/start.sh" ]
+# CMD ["mysqld", "--bind-address=0.0.0.0"]
+
+
 #check mariadb service
 #service mariadb status
 #RUN service mariadb start 
