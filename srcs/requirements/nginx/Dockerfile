@@ -1,6 +1,8 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get -y install nginx \
+RUN apt-get update 
+RUN apt-get upgrade
+RUN apt-get -y install nginx \
 openssl 
 #&& rm -rf /var/lib/apt/lists/*
 
@@ -23,6 +25,6 @@ COPY conf/nginx.conf /etc/nginx/sites-available/default
 
 # add 127.0.0.1 oabdalla.42.fr to host file and on host machine
 
-EXPOSE 443 
-
+EXPOSE 443
+#start nginx in foreground when container starts
 CMD ["nginx", "-g", "daemon off;"]

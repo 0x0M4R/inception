@@ -11,3 +11,14 @@ set up ssh and port foward from vm to mac
 check if mariadb is already installed
 check if wordpress already installed 
 check if nginx already installed 
+
+to install vm:
+install debian mininal 
+    - export mode - choose not to install packages
+install sudo - add user 
+install ssh - start service
+install docker and git docker-compose
+
+sudo usermod -aG docker $USER
+https://gcore.com/learning/how-to-install-docker-engine-debian/
+sudo service docker restart

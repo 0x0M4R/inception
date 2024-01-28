@@ -1,60 +1,89 @@
 version: '3'
 services:
-
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
     #image: debian:buster
     volumes:
-      - db_data:/var/lib/mysql
-    # networks:
-    #   - docker_network
+      - db:/var/lib/mysql
+    networks:
+      - docker_network
+    # args: MARIADB_DATABASE=${MARIADB_DATABASE}
     tty: true
     env_file:
       - .env
 #    restart: always
-
-#   wordpress:
-#     container_name: wordpress
-#     build: wordpress
-#     depends_on: 
-#       - mariadb
-#     networks:
-#       - docker_network
-#     volumes:
-#       - wordpress_data:/var/www/html
-#     env_file:
-#       - .env
-#     restart: always
-
-#   nginx:
-#     container_name: nginx
-#     build: nginx
-#     depends_on :
-#       - wordpress
-#     networks:
-#       - docker_network
-#     ports:
-#       - 443:443
-#     volumes:
-#       - wordpress_data:/var/www/html
-#     restart: always
-
-# networks:
-#   docker_network:
-#     driver : bridge
-
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    depends_on: 
+      - mariadb
+    networks:
+      - docker_network
+    volumes:
+      - wp:/var/www/html
+    env_file:
+      - .env
+    # restart: always
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    depends_on :
+      - wordpress
+    networks:
+      - docker_network
+    ports:
+      - 443:443
+      # extra_hosts:
+      #   - "127.0.0.1:oabdalla.42.fr.localhost"
+    volumes:
+      - wp:/var/www/html
+    #restart: always
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis
+    env_file:
+      - ./.env
+    networks:
+      - docker_network
+    volumes:
+      - wp:/var/www/html
+    depends_on:
+      - wordpress
+    restart: always
+  vsftpd:
+    container_name: vsftpd
+    build:
+      context: ./requirements/bonus/vsftpd
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASS: ${FTP_PASS}
+    env_file:
+      - .env
+    networks:
+      - docker_network
+    ports:
+      - 21:21
+      - 4242-4262:4242-4262
+    volumes:
+      - wp:/var/www/html
+    depends_on:
+      - wordpress
+    # restart: always
+networks:
+  docker_network:
+    driver : bridge
 volumes:
-  db_data: 
+  db: 
     driver: local
     driver_opts:
       type: none
-      device: /Users/oabdalla/data/mysql
+      device: /home/oabdalla/data/mysql
       o: bind
-#   wp:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /Users/oabdalla/data/wp
-#       o: bind
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/oabdalla/data/wp
+      o: bind
 

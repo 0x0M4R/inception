@@ -1,0 +1,61 @@
+version: '3'
+services:
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    #image: debian:buster
+    hostname : mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    # networks:
+    #   - docker_network
+    # tty: true
+    env_file:
+      - .env
+#    restart: always
+
+#   wordpress:
+#     container_name: wordpress
+#     build: wordpress
+#     depends_on: 
+#       - mariadb
+#     networks:
+#       - docker_network
+#     volumes:
+#       - wordpress_data:/var/www/html
+#     env_file:
+#       - .env
+#     restart: always
+
+#   nginx:
+#     container_name: nginx
+#     build: nginx
+#     depends_on :
+#       - wordpress
+#     networks:
+#       - docker_network
+#     ports:
+#       - 443:443
+#     volumes:
+#       - wordpress_data:/var/www/html
+#     restart: always
+
+# networks:
+#   docker_network:
+#     driver : bridge
+
+volumes:
+  db_data: 
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/oabdalla/data/mysql
+      o: bind
+#   wp:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /Users/oabdalla/data/wp
+#       o: bind
+
